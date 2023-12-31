@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerMotion : MonoBehaviour
 {
-     Rigidbody rb;
+    public AudioSource sfx;
+    public AudioClip jump_sfx;
+    public AudioClip hit_sfx;
+    Rigidbody rb;
     [SerializeField] readonly float movementSpeed = 8f;
     [SerializeField] readonly float jumpForce = 5f;
 
@@ -36,7 +39,8 @@ public class PlayerMotion : MonoBehaviour
     void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-        jumpSound.Play();
+        sfx.clip = jump_sfx;
+        sfx.Play();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,7 +48,8 @@ public class PlayerMotion : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy Head"))
         {
             Destroy(collision.transform.parent.gameObject);
-            Jump();
+            sfx.clip = hit_sfx;
+            sfx.Play();
         }
     }
 

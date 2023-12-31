@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ItemCollector : MonoBehaviour
 {
+    public AudioClip coin_sfx;
+    public AudioSource sfx;
     public TextMeshProUGUI coinsText;
 
     private int coins = 0;
@@ -16,6 +18,8 @@ public class ItemCollector : MonoBehaviour
         {
             Destroy(other.gameObject);
             coins++;
+            sfx.clip = coin_sfx;
+            sfx.Play();
             UpdateScoreText();
         }
     }
